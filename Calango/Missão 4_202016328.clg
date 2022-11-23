@@ -1,0 +1,150 @@
+algoritmo Cadestro_De_Notas;
+// Síntese
+//  Objetivo:  Cadastrar as notas dos alunos.
+//  Entrada : Notas dos alunos.
+//  Saída   : Notas, média de notas, aprovados, reprovados e listar as notas mais altas da média.
+
+
+principal
+	// Declarações
+	caracter continuar;
+	inteiro opcao, APV, RPV, QNTD;
+	real notas[300], i, i2, soma, media, MQM[300];
+	QNTD = 0; 
+	media = 0;
+	soma = 0;
+	APV = 0;
+	RPV = 0;
+	i = 0;
+	i2 = 0;
+
+	//Dicionário: 
+	
+	// MQM = maior que a média;
+	// QNTD = quantidade;
+	//APV = aprovados;
+	//RPV = reprovados;
+
+	//Saudações ao professor.
+	escreval("┊┊┊┊⋆ ✧　 　 · 　 ✧　✵");
+	escreval("┊┊┊☆ *　　 * ⋆");
+	escreval("┊┊★ *  Olá, professor! Seja bem vindo. Espero que esteja tudo bem.");
+	escreval("┊┊* . *　✦");
+	escreval("┊☆ ° ✧　");
+	escreval("★*");
+	escreval(" ");
+	escreval("▸ Aperte enter para acessar o menu.");
+	leiaCaracter(continuar);
+
+	//Menu de opções.
+	faca
+		escreval("▸ 1 - Cadastro de notas");
+		escreval("▸ 2 - Listar Notas");
+		escreval("▸ 3 - Imprimir média");
+		escreval("▸ 4 - Listar Aprovados");
+		escreval("▸ 5 - Listar Reprovados");
+		escreval("▸ 6 - Listar notas maiores que a Média geral da turma");
+		escreval("▸ 7 - Sair");
+		leia(opcao);
+		
+		escolha(opcao)
+			caso 1
+					escreval("▸ Digite a quantidade de notas que deseja cadastrar: （＾ω＾）");
+					leia(QNTD);
+					para(i de 0 ate QNTD-1 passo 1) faca
+					QNTD = QNTD + 1;
+					escreval("▸ Cadastre aqui as notas de seus alunos. ٩(˘◡˘)۶");
+					escreval(" ");
+					leia(notas[i]);
+					escreval(" ");
+					enquanto(notas[i] < 0 ) faca //Invalidação das notas abaixo de 0.
+						escreval("▸ Nota inválida! Digite uma nota entre 0 e 10 (乛-乛)");
+						escreval(" ");
+						leia(notas[i]);
+						escreval(" ");
+					fimEnquanto
+					enquanto(notas[i] > 10) faca //Invalidação das notas acima de 10.
+						escreval("▸ Nota inválida! Digite uma nota entre 0 e 10 (乛-乛)");
+						escreval(" ");
+						leia(notas[i]);
+						escreval(" ");
+					fimEnquanto
+					soma =  soma + notas[i];
+					se(notas[i] >= 5) entao
+					APV = APV + 1;
+					fimSe
+					se(notas[i] < 5) entao
+					RPV = RPV + 1;
+					fimSe
+					i2 = i2+ 1;
+					media = soma / i2;
+				fimPara
+				interrompa;
+				
+			caso 2 //Impressão do total de notas.
+				escreval("▸ Essas são as notas da sua turma: (◍•ᴗ•◍)♡ ✧*。");
+				para(i de 0 ate i2-1 passo 1) faca
+					se(notas[i] <= 10) entao
+						escreval(" ");
+						escreval("▹ " + notas[i]);
+						escreval(" ");
+					fimSe
+				fimPara	
+			interrompa;
+			
+			caso 3 //Impressão da média da turma.
+				escreval(" ");
+				escreval("▹  Essa é a média da sua turma: " +  media + " ƪ(˘⌣˘)┐");
+				escreval(" ");
+			interrompa;
+			
+			caso 4 //Impressão das notas aprovadas.
+				escreval(" ");
+				escreval("▸ Essa é a quantidade de notas aprovadas: (≧◡≦)");
+				escreval(" ");
+				para(i de 0 ate i2-1 passo 1) faca
+					se(notas[i] >= 5) entao
+						escreval("▹ " +notas[i]);
+						escreval(" ");
+					fimSe
+				fimPara
+			interrompa;
+			
+			caso 5 //Impressão das notas reprovadas.
+				escreval(" ");
+				escreval("▸ Essa é a quantidade de notas reprovadas: (◞ ‸ ◟ )");
+				escreval(" ");
+				para(i de 0 ate i2-1 passo 1) faca
+					se(notas[i] < 5) entao
+						escreval("▹ " + notas[i]);
+						escreval(" ");
+					fimSe
+				fimPara
+			interrompa;
+			
+			caso 6 //Impressão das notas acima da média da turma.
+				escreval(" ");
+				escreval("▸ As notas acima da média foram: ( ˘ ³˘)❤");
+				escreval(" ");
+				para(i de 0 ate i2-1 passo 1) faca
+					se(notas[i] > media) entao
+						MQM[i] = notas[i];
+						escreval("▹ " + MQM[i]);
+						escreval(" ");
+					fimSe
+				fimPara
+			interrompa;
+		fimEscolha	
+		
+	enquanto(opcao !=7);
+
+	escreval(" ");
+	escreval(". 　。　　　　•　         　ﾟ　　。                     ");
+	escreval("　　             .Foi um prazer te ver por aqui!　　");
+	escreval("。　　 。            Volte sempre que quiser.　.   ");
+	escreval("　.　　 。　  。          .Se cuida, viu?.                     ");
+	escreval("• .　         。           。　       . •.                ");
+	escreval("　 　　。　　　　　　ﾟ　");
+	escreval("　　.　　　　　                        .");
+	escreval(",　　　　.　 .　                　 . 。");
+fimPrincipal

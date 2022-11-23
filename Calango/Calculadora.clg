@@ -1,0 +1,58 @@
+algoritmo Calculadora;
+
+// Síntese
+//  Objetivo: Oferecer um menu de opções ao usuário.
+//  Entrada : Fornecer as opções aos usuários.
+//  Saída   : Fornecer ao usuário as informações desejadas.
+
+
+principal
+	// Declarações
+	inteiro menu;
+	real num1, num2, resultado;
+	real num3, num4;
+		
+	// Instruções
+	
+	escreval("Menu de opções:");
+	escreval("1 - Informações");
+	escreval("2 - Calcular IMC");
+	escreval("3 - Multiplicação");
+	escreval("4 - Sair");
+	leia(menu);
+
+	escolha(menu)
+	caso 1
+		escreval("Nome: Geovanna Maciel Avelino da Costa");
+		escreval("Número da matrícula: 202016328");
+		escreval("Estou no semestre 2/2020");
+		interrompa;
+		caso 2
+		escreval("Calculcar IMC");
+		escreval(" ");
+		escreval("Digite seu peso.");
+		leia(num1);
+		escreval("Digite sua altura");
+		leia(num2);
+		resultado = num1 / (num2 * num2);
+		escreval(" ");
+		escreval("Seu IMC é " + resultado);
+		interrompa;
+		caso 3
+		escreval("Multiplicação");
+		escreval(" ");
+		escreval("Digite o primeiro número.");
+		leia(num3);
+		escreval("Digite o segundo número.");
+		leia(num4);
+		escreval(" ");
+		resultado = (num3 * num4);
+		escreval(num3 + " x " + num4 + " = " + resultado);
+		interrompa;
+		caso 4
+		escreval("Adorei te ver por aqui! Espero que volte mais vezes. Tchau!");
+		interrompa;
+		outroCaso 
+		escreval("Escolha entre 1 e 4!");
+	fimEscolha
+fimPrincipal

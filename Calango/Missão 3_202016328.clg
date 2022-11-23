@@ -1,0 +1,180 @@
+algoritmo RegistrodeNotas;
+// Síntese
+//  Objetivo:  Registrar as notas finais dos alunos;
+//  Entrada : Notas finais dos alunos;
+//  Saída   : Resultado de aprovados, reprovados, maior nota e menor nota.
+
+
+principal
+	// Declarações
+	real notas, maior, menor;
+	inteiro opcoes, TDN, APV, RPV;
+	caracter continuidade;
+	maior = 0;
+	menor = 99999;
+
+	//Saudação ao professor e pedido das notas.
+	escreval("➤ Olá professor(a)! Seja muito bem-vindo(a)! Espero que esteja tendo um ótimo dia ♡＾▽＾♡.");
+	escreval(" ");
+	escreval("▸Por favor, digite aqui as notas de seus alunos. Caso haja alguma nota em decimal, utilize ponto ( . ) e não vírgula ( , )");
+	leia(notas);
+
+	// Instruções
+	TDN = 0;
+	APV = 0;
+	RPV = 0;
+	
+	//Definição dos dados
+	faca
+		escreval("▸Por favor, digite aqui as notas de seus alunos. Caso haja alguma nota em decimal, utilize ponto ( . ) e não vírgula ( , )");
+		leia(notas);
+		TDN = total_de_alunos(TDN);
+		APV = numero_de_aprovados(APV, notas);
+		RPV = numero_de_reprovados(RPV, notas);
+		maior = maior_nota(notas, maior, continuidade);
+		menor = menor_nota(notas, menor, continuidade);
+		
+	enquanto( notas > 0 );
+	
+	faca
+	menu_de_opcoes();
+	leia(opcoes);
+	numero_invalido(opcoes);
+		//Respectivas funções de cada opção.
+		escolha(opcoes)
+			caso 1
+				escreval(" ");
+				escreval("▸ O total de alunos é de: " + TDN + " (^･ｪ･^)");
+				escreval(" ");
+				escreval("▸ Aperte Enter para continuar.");
+				leiaCaracter(continuidade);
+				interrompa;
+				
+			caso 2
+				quantidade_de_aprovados(APV, continuidade);
+				interrompa;
+				
+			caso 3
+				quantidade_de_reprovados(RPV, continuidade);
+				interrompa;
+				
+			caso 4
+				resultado_maior_nota(notas, maior, continuidade);
+				interrompa;
+				
+			caso 5
+				resultado_menor_nota(notas, menor, continuidade);
+				interrompa;
+		fimEscolha
+	enquanto(opcoes < 6);
+	sair();
+	
+fimPrincipal
+
+//Opções do menu.
+procedimento menu_de_opcoes()
+		limpaTela();
+		escreval("➤ Escolha uma das seguintes opções:");
+		escreval(" ");
+		escreval("▸1 - Total de alunos");
+		escreval("▸2 - Quantidade de Aprovados");
+		escreval("▸3 - Quantidade de Reprovados");
+		escreval("▸4 - Maior nota");
+		escreval("▸5 - Menor nota");
+		escreval("▸6 - Sair");
+		escreval(" ");
+fimProcedimento
+
+//Invalidação do número caso fora de 1 a 6.
+procedimento numero_invalido(inteiro opcoes)
+	enquanto(opcoes < 1 ou opcoes > 6) faca
+		escreval("▸Por favor, escolha um número entre 1 e 6, professor(a)! ^ω^");
+		leia(opcoes);
+		fimEnquanto
+fimProcedimento
+
+//Função para o número total de alunos.
+funcao inteiro total_de_alunos(inteiro TDN)
+	TDN = TDN + 1;
+	retorna TDN;
+fimFuncao
+
+//Função para quantificar os aprovados.
+funcao inteiro numero_de_aprovados(inteiro APV, real notas)
+	se(notas > 5) entao
+		APV = APV + 1;
+		fimSe
+		retorna APV;
+fimFuncao
+
+//Função para quantificar os reprovados.
+funcao inteiro numero_de_reprovados(inteiro RPV, real notas)
+	se(notas < 5) entao
+		RPV = RPV + 1;
+		fimSe
+		retorna RPV;
+fimFuncao
+
+//Indicar o total de aprovados.
+procedimento quantidade_de_aprovados(inteiro APV, caracter continuidade)
+	escreval(" ");
+	escreval("▸ O total de alunos aprovados é de: " + APV);
+	escreval(" ");
+	escreval("▹ Eles merecem um tapinha nas costas, hein? ヽ(=^･ω･^=)丿");
+	escreval(" ");
+	escreval("▸Aperte Enter para continuar.");
+	leiaCaracter(continuidade);
+fimProcedimento
+
+//Indicar o total de reprovados.
+procedimento quantidade_de_reprovados(inteiro RPV, caracter continuidade)
+	escreval(" ");
+	escreval("▸O total de alunos reprovados é de: " + RPV);
+	escreval(" ");
+	escreval("▹ Bom... pelo menos terão mais uma chance de assistir suas aulas! ｢(ﾟﾍﾟ)");
+	escreval(" ");
+	escreval("▸Aperte Enter para continuar.");
+	leiaCaracter(continuidade);
+fimProcedimento
+
+//Indicar a maior nota.
+funcao real maior_nota(real notas, real maior, caracter continuidade)
+	se(notas > maior) entao
+		maior = notas;	
+		fimSe
+		retorna maior;
+fimFuncao
+
+procedimento resultado_maior_nota(real notas, real maior, caracter continuidade)
+	escreval(" ");
+	escreval("▸A maior nota foi: " + maior_nota(notas, maior, continuidade) + " ! ");
+  	escreval(" ");
+	escreval("▹ Não esqueça de parabenizá-lo ~(=^･ω･^)ﾉ");
+	escreval(" ");
+	escreval("▸Aperte Enter para continuar.");
+ 	leiaCaracter(continuidade);
+fimProcedimento
+
+funcao real menor_nota(real notas, real menor, caracter continuidade)
+	se(notas < menor) entao
+		menor = notas;
+		fimSe
+		retorna menor;
+fimFuncao
+
+//Indicar a menor nota.
+procedimento resultado_menor_nota(real notas, real menor, caracter continuidade)
+	escreval(" ");
+	escreval("▸A menor nota foi: " + menor_nota(notas, menor, continuidade) + " :( ");
+	escreval(" ");
+	escreval("▹ Seria cômico se não fosse trágico ~(=^‥^)_｡ ");
+	escreval(" ");
+	escreval("▸Aperte Enter para continuar.");
+	leiaCaracter(continuidade);
+fimProcedimento
+
+//Saída do usuário.
+procedimento sair()
+	escreval(" ");
+	escreval("▸Foi um prazer te atender hoje! Independente dos resultados que seus alunos tenham tido, saiba que você está fazendo um ótimo trabalho e eu acredito em você! Até mais (^・ω・^ )");
+fimProcedimento

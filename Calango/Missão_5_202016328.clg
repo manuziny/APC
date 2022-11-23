@@ -1,0 +1,229 @@
+algoritmo Gerenciamento_de_uma_disciplina;
+// Síntese
+//  Objetivo: apresentar os resultados fornecidos de acordo com as opções dadas;
+//  Entrada : Nome e nota dos alunos a serem cadastrados;
+//  Saída   : Listamento de estudantes, aprovados e reprovados, assim como a pesquisa de estudantes cadastrados.
+
+
+principal
+	// Declarações
+	caracter continuar;
+	inteiro opcao, APV, RPV, QNTD, QNTD_alunos, achado;
+	real notas[300], i;
+	texto alunos[300], pesquisa_aluno, mencao[300];
+
+	QNTD = 0;
+	APV = 0;
+	RPV = 0;
+	i = 0;
+	
+	//Dicionário: 
+	// MQM = maior que a média;
+	// QNTD = quantidade;
+	//APV = aprovados;
+	//RPV = reprovados;
+
+	// Instruções
+
+	//Saudações ao professor.
+	escreval("┊┊┊┊⋆ ✧　 　 · 　 ✧　✵");
+	escreval("┊┊┊☆ *　　 * ⋆");
+	escreval("┊┊★ *  Olá, professor! Seja bem vindo. Espero que esteja tudo bem.");
+	escreval("┊┊* . *　✦");
+	escreval("┊☆ ° ✧　");
+	escreval("★*");
+	escreval(" ");
+	escreval("▸ Aperte enter para acessar o menu.");
+	leiaCaracter(continuar);
+
+	faca
+		menu_de_opcoes(opcao); //Menu de opções.
+		leia(opcao);
+		
+		escolha(opcao)
+		caso 1  //Armazenamento dos nomes e notas dos alunos com suas classificações.
+			escreval("▸ Digite a quantidade de alunos que deseja cadastrar: （＾ω＾）");
+			leia(QNTD_alunos);
+			para(i de QNTD ate QNTD+(QNTD_alunos-1) passo 1) faca
+				escreval("▸ Cadastre aqui o nome do respectivo aluno. ٩(˘◡˘)۶");
+				escreval(" ");
+				leia(alunos[i]);
+				escreval(" ");
+				nome_invalido(alunos, QNTD, i);
+				escreval("▸ Agora, a nota do respectivo aluno (• ε •)");
+				escreval(" ");
+				leia(notas[i]);
+				escreval(" ");
+				nota_invalida_1(notas, i);
+				nota_invalida_2(notas, i);
+				APV =aprovados(APV, notas[i]);
+				RPV = reprovados(RPV, notas[i]);
+				QNTD = QNTD + 1;
+			fimPara
+			interrompa;
+
+		caso 2
+			listar_alunos(notas, i, alunos, QNTD); //Listagem dos alunos e classificando se foram aprovados ou reprovados.
+			interrompa;
+
+		caso 3
+			alunos_aprovados(notas, alunos, QNTD, i, APV); //Quantitativa de aprovados, alunos e suas notas.
+			interrompa;
+
+		caso 4
+			alunos_reprovados(notas, alunos, QNTD, i, RPV); //Quantitativo de reprovados, alunos, suas notas e quanto falta para serem aprovados.
+			interrompa;
+		caso 5
+			pesquisa_do_aluno(pesquisa_aluno, i, QNTD, mencao, notas, alunos); //Pesquisa dos alunos.
+
+		fimEscolha
+
+	enquanto(opcao !=6); //Saída do programa.
+	escreval(" ");
+	escreval(". 　。　　　　•　         　ﾟ　　。                     ");
+	escreval("　　             .Foi um prazer te ver por aqui!　　");
+	escreval("。　　 。            Volte sempre que quiser.　.   ");
+	escreval("　.　　 。　  。          .Se cuida, viu?.                     ");
+	escreval("• .　         。           。　       . •.                ");
+	escreval("　 　　。　　　　　　ﾟ　");
+	escreval("　　.　　　　　                        .");
+	escreval(",　　　　.　 .　                　 . 。");
+
+fimPrincipal
+
+procedimento menu_de_opcoes(inteiro opcao)
+	escreval("▸ 1 - Cadastrar estudantes");
+	escreval("▸ 2 - Listar Estudantes");
+	escreval("▸ 3 - Listar Aprovados");
+	escreval("▸ 4 - Listar Reprovados");
+	escreval("▸ 5 - Pesquisar estudante");
+	escreval("▸ 6 - Sair");
+fimProcedimento
+
+procedimento nome_invalido(texto alunos[], inteiro QNTD, inteiro i) //Invalidação dos nomes com menos de 3 letras.
+	enquanto(tamanhoTexto(alunos[i])  < 3) faca
+		escreval("▸ Nome inválido! Escreva um nome com mais de 3 letras. (乛-乛)");
+		escreval(" ");
+		leia(alunos[i]);
+		escreval(" ");
+	fimEnquanto
+fimProcedimento
+
+procedimento nota_invalida_1(real notas[], inteiro i)
+	enquanto(notas[i] < 0 ) faca //Invalidação das notas abaixo de 0.
+		escreval("▸ Nota inválida! Digite uma nota entre 0 e 10 (乛-乛)");
+		escreval(" ");
+		leia(notas[i]);
+	fimEnquanto
+fimProcedimento
+
+procedimento nota_invalida_2(real notas[], inteiro i)
+	enquanto(notas[i] > 10) faca //Invalidação das notas acima de 10.
+		escreval("▸ Nota inválida! Digite uma nota entre 0 e 10 (乛-乛)");
+		escreval(" ");
+		leia(notas[i]);
+		escreval(" ");
+	fimEnquanto
+fimProcedimento
+
+funcao inteiro aprovados(inteiro APV, real notas) 
+	se(notas >= 5) entao
+		APV = APV + 1;
+	fimSe
+	retorna APV;
+fimFuncao
+
+funcao inteiro reprovados(inteiro RPV, real notas)
+	se(notas < 5) entao
+		RPV = RPV + 1;
+	fimSe
+	retorna RPV;
+fimFuncao
+
+procedimento listar_alunos(real notas[], inteiro i, texto alunos[], inteiro QNTD) //Listagem de alunos.
+	escreval("▸ Esses são os alunos e as notas de sua turma, respectivamente:");
+	escreval("(◍•ᴗ•◍)♡ ✧*。");
+	para(i de 0 ate QNTD-1 passo 1) faca
+		se(notas[i] <= 10 e notas[i] >= 5) entao
+			escreval(" ");
+			escreval("▹ " + alunos[i] + ", " + notas[i] + " Aprovado");
+			escreval(" ");
+		senao
+			escreval(" ");
+			escreval("▹ " + alunos[i] + ", " + notas[i] + " Reprovado");
+			escreval(" ");
+		fimSe
+	fimPara
+fimProcedimento
+
+procedimento alunos_aprovados(real notas[], texto alunos[], inteiro QNTD, inteiro i, inteiro APV)
+	escreval(" ");
+	escreval("▸ Essa é a quantidade de alunos aprovados: " + APV + " (≧◡≦)");
+	escreval(" ");
+	para(i de 0 ate QNTD-1 passo 1) faca
+		se(notas[i] >= 5) entao
+			escreval("▹ " + alunos[i] + ", " + notas[i]);
+			escreval(" ");
+		fimSe
+	fimPara
+fimProcedimento
+
+procedimento alunos_reprovados(real notas[], texto alunos[], inteiro QNTD, inteiro i, inteiro RPV)
+	escreval(" ");
+	escreval("▸ Essa é a quantidade de alunos reprovados: " + RPV + " (◞ ‸ ◟ )");
+	escreval(" ");
+	para(i de 0 ate QNTD-1 passo 1) faca
+		se(notas[i] < 5) entao
+			escreval("▹ " + alunos[i] + ", " + notas[i]);
+			escreval("▹ Precisa de " + (5 - notas[i]) + " para passar  ~(=^‥^)_｡");
+			escreval(" ");
+		fimSe
+	fimPara
+fimProcedimento
+
+//Função para buscar o aluno e mostrar sua menção.
+funcao texto pesquisa_do_aluno(texto pesquisa_aluno, inteiro i, inteiro QNTD, texto mencao[], real notas[], texto alunos [])
+	inteiro achado;
+	achado = 0;
+	escreval("▸ Digite aqui o nome do aluno que deseja pesquisar: (￣ω￣﻿) ");
+	escreval(" ");
+	leia(pesquisa_aluno);
+	para(i de 0 ate QNTD-1 passo 1) faca //Definição da menção.
+		se(comparaTexto(pesquisa_aluno, alunos[i]) == 0) entao
+			se(notas[i] == 0) entao
+				mencao[i] = "SR";
+			fimSe
+			
+			se(notas[i] <= 2.9 e notas[i] > 0) entao
+				mencao[i] = "II";
+			fimSe
+			
+			se(notas[i] <= 4.9 e notas[i] > 2.9) entao
+				mencao[i] = "MI";
+			fimSe
+			
+			se(notas[i] <= 6.9 e notas[i] > 4.9) entao
+				mencao[i] = "MM";
+			fimSe
+			
+			se(notas[i] <= 8.9 e notas[i] > 6.6) entao
+				mencao[i] = "MS";
+			fimSe
+			
+			se(notas[i] <= 10 e notas[i] > 8.9) entao
+				mencao[i] = "SS";
+			fimSe
+			
+			escreval(" ");
+			escreval("▹ " + alunos[i] + ", " + mencao[i]);
+			escreval(" ");
+			achado = achado + 1;
+		fimSe
+	fimPara
+	se(achado == 0) entao
+		escreval(" ");
+		escreval("▹ Aluno não encontrado! (づ◡﹏◡)づ");
+		escreval(" ");
+	fimSe
+		retorna pesquisa_aluno;
+		fimFuncao
